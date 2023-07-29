@@ -106,6 +106,26 @@ public class User {
 		this.email = email;
 		this.adresse = adresse;
 	}
+	public User(Long idUtil, String image, String username, String password, Boolean enabled, String nom, String prenom,
+			String numTel, String email, String adresse) {
+		super();
+		this.idUtil = idUtil;
+		this.image = image;
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.numTel = numTel;
+		this.email = email;
+		this.adresse = adresse;
+	}
+	public User() {
+		super();
+	}
+	
+	
+	
     
     
 }
