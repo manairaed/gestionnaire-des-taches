@@ -1,16 +1,26 @@
 package com.gestionnaire.demo.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.Lob;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.InheritanceType;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 
 
 @Data 
@@ -25,6 +35,7 @@ public class User {
 
     @Lob
     String image;
+    
     @Column(unique=true)
     private String username;
     private String password;
@@ -64,6 +75,9 @@ public class User {
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
+	
+	
+	
 	public String getNom() {
 		return nom;
 	}
@@ -122,6 +136,28 @@ public class User {
 	}
 	public User() {
 		super();
+	}
+	
+	public User(Long idUtil, String username, String password, Boolean enabled, List<Role> roles) {
+		super();
+		this.idUtil = idUtil;
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.roles = roles;
+	}
+
+
+
+	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name="utilisateur_role",joinColumns = @JoinColumn(name="idUtil") ,
+    inverseJoinColumns = @JoinColumn(name="idRole"))
+	private List<Role> roles;
+	public List<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 	
 	
